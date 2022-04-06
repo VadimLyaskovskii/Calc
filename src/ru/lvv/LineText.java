@@ -6,7 +6,6 @@ public class LineText {
     String[] sign = new String[]{"+", "-", "*", "/"};
     int numSign = 1;
 
-
     private String lineTextNoSpace(String str) {
         String textNoSpase;
         textNoSpase = str.replaceAll(" ", "");
@@ -57,7 +56,6 @@ public class LineText {
         }
         return ConverterNumber.arabToRims(intResult);
     }
-
 
      public String[] mathLine (String str) {
         String strNumber1;
