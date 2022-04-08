@@ -21,7 +21,7 @@ public class MyCalc {
                     answer = lT.mathLine(textLine);
                     System.out.println("Ответ: "+answer);
                 } catch (CalcException e) {
-                    System.out.println(e.getCalc());
+                    System.err.println(e.getCalc());
                 }
             }else if (yesNoHelp.equals("help")){
                 oFH.openFileHelp();
