@@ -57,7 +57,7 @@ public class LineText {
         return ConverterNumber.arabToRims(intResult);
     }
 
-     public String[] mathLine (String str) {
+     public String mathLine (String str) throws CalcException{
         String strNumber1;
         String strNumber2;
         char chSign;
@@ -75,7 +75,7 @@ public class LineText {
             }
         }
         if (sumSign!=numSign) {
-            return new String[]{"0", "1"};//Ошибка в арифметических действиях. Можно использоваться только одно арифметичаское действие: либо "+", либо "-", либо "*", либо "/".
+            throw new CalcException("1");
         }else {
             strNumber1 = str.substring(0, operatorZ);
             strNumber2 = str.substring(operatorZ+1);
@@ -83,23 +83,23 @@ public class LineText {
             checkNum1 = checkNumber(strNumber1);
             checkNum2 = checkNumber(strNumber2);
             if ((checkNum1==3)&&(checkNum2==3)||(checkNum1==1)&&(checkNum2==3)|| (checkNum1==3)&&(checkNum2==1)||(checkNum1==2)&&(checkNum2==3)||(checkNum1==3)&&(checkNum2==2)) {
-                return new String[]{"0", "2"};//Некорректно введено 1-ое число и(или) 2-ое число (арабские от 1 до 10, римские от I до X).
+                throw new CalcException("2");
             }
             if((checkNum1==1)&&(checkNum2==2)||(checkNum1==2)&&(checkNum2==1)){
-                return new String[]{"0", "3"};//Арифметическое выражение должно состоять только из арабских чисел или из римских чисел.
+                throw new CalcException("3");
             }
             if ((checkNum1==1)&&(checkNum2==1)) {
-                return new String[]{"1", strArabCalc(strNumber1, strNumber2, chSign)};
+               return strArabCalc(strNumber1, strNumber2, chSign);
             }
             if ((checkNum1==2)&&(checkNum2==2)) {
                 if(strRimsCalc(strNumber1, strNumber2, chSign).equals("false")) {
-                    return new String[]{"0", "4"};//Римские числа не могут быть отрицательными или равные 0.
+                    throw new CalcException("4");
                 }else {
-                    return new String[]{"1", strRimsCalc(strNumber1, strNumber2, chSign)};
+                    return strRimsCalc(strNumber1, strNumber2, chSign);
                 }
             }
 
         }
-        return new String[]{"0", "0"};
+        return "0";
     }
 }
